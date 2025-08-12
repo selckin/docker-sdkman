@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+mounts=(
+    "/candidates/"
+    "/var/metadata/"
+)
+
+for mount in "${mounts[@]}"; do
+    mkdir -p "$HOME/.sdkman/$mount"
+done
+
+args=(
+    -it
+    --rm
+    -u "$(id -u):$(id -g)"
+)
+
+for mount in "${mounts[@]}"; do
+    args+=(-v "$HOME/.sdkman/$mount:/home/ubuntu/.sdkman/$mount")
+done
+
+exec docker run "${args[@]}" selckin.be/sdk "${@}"

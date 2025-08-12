@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+exec docker buildx build --pull -t selckin.be/sdk docker
